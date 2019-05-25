@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="sr">
+    <head>
+        <base href="{{ base_url }}/">
+        <title>{{ title }} - {{ application_owner }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ favicon }}" rel="icon" type="image/png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+              integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+              crossorigin="anonymous"> {% block stylesheets %}{% endblock %}
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% block scripts %}{% endblock %}
+    </head>
+    <body>
+        {% if show_navi_bar ?? true %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navi-bar"
+                        aria-controls="navi-bar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navi-bar">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ application_owner_home_page }}"
+                               title="Повратак на {{ application_owner }}">
+                                Повратак на {{ application_owner }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path_for('index') }}" title="Допуна персонализованих картица">
+                                Допуна персонализованих картица
+                            </a>
+                        </li>
+                        <li class="d-block d-sm-block d-md-block d-lg-none d-xl-none nav-item">
+                            <a class="nav-link text-success" href="{{ path_for('shopping.cart') }}" title="Корпа">
+                                <i class="fas fa-shopping-cart"></i>
+                                ( {{ number_of_items }} ком. | {{ transaction_amount|currency('дин.') }} )
+                            </a>
+                        </li>
+                    </ul>
+                    <span class="d-none d-sm-none d-md-none d-lg-block d-xl-block float-right">
+                        <a class="nav-link text-success" href="{{ path_for('shopping.cart') }}" title="Корпа">
+                            <i class="fas fa-shopping-cart"></i>
+                            ( {{ number_of_items }} ком. | {{ transaction_amount|currency('дин.') }} )
+                        </a>
+                    </span>
+                </div>
+            </nav>
+        {% endif %}
+        <div class="container-fluid">
+            {% block container %}{% endblock %}
+        </div>
+        <footer class="p-2 text-center bg-light">
+            <small>&copy; Copyrights {{ now|date('Y') }}. Apex Solution Technology</small>
+        </footer>
+    </body>
+</html>

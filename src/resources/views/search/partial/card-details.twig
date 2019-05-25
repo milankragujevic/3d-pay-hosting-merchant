@@ -1,0 +1,73 @@
+{% if fields.category_name is not empty %}
+    <div class="form-group">
+        <label for="category-name">Категорија картице:</label>
+        <input type="text" id="category-name"
+               class="form-control form-control-plaintext"
+               value="{{ fields.category_name|default('') }}" disabled>
+    </div>
+{% endif %}
+{% if fields.category_expiry_date is not empty %}
+    <div class="form-group">
+        <label for="category-expiry-date">Категорија је активна до:</label>
+        <input type="text" id="category-expiry-date"
+               class="form-control form-control-plaintext"
+               value="{{ fields.category_expiry_date|date_format('d.m.Y') }}" disabled>
+    </div>
+{% endif %}
+{% if fields.card_expiry_date is not empty %}
+    <div class="form-group">
+        <label for="card-expiry-date">Картица је активна до:</label>
+        <input type="text" id="card-expiry-date"
+               class="form-control form-control-plaintext"
+               value="{{ fields.card_expiry_date|date_format('d.m.Y') }}" disabled>
+    </div>
+{% endif %}
+{% if fields.card_is_disabled is not empty %}
+    <div class="form-group">
+        <label for="card-status">Статус картице:</label>
+        <input type="text" id="card-status"
+               class="form-control form-control-plaintext text-uppercase {{ fields.card_is_disabled ? 'text-danger' : 'text-success' }}"
+               value="{{ fields.card_is_disabled|card_status }}" readonly="readonly" disabled="disabled">
+    </div>
+{% endif %}
+{% if fields.available_recharge_types is not empty %}
+    <div class="form-group">
+        {% if fields.card_is_disabled == true %}
+            <label for="recharge-type">Тип допуне:</label>
+            <input type="text" id="recharge-type"
+                   class="form-control form-control-plaintext text-danger"
+                   value="Картицу није могуће допунити." disabled>
+        {% else %}
+            <label for="recharge-type">
+                <i class="fas fa-asterisk text-danger small"></i> Тип допуне:
+            </label>
+            <select id="recharge-type"
+                    class="custom-select">
+                <option value="">Изаберите...</option>
+                {% for recharge_type in fields.available_recharge_types %}
+                    <option value="{{ recharge_type.id }}">
+                        {{ recharge_type.description }}
+                    </option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </div>
+{% endif %}
+{% if fields.available_zones is not empty %}
+    <div class="form-group">
+        {% if fields.card_is_disabled == true %}
+            <label for="zone">Зона:</label>
+            <input type="text" id="zone"
+                   class="form-control form-control-plaintext text-danger"
+                   value="Картицу није могуће допунити." disabled>
+        {% else %}
+            <label for="zone"><i class="fas fa-asterisk text-danger small"></i> Зона:</label>
+            <select id="zone" class="custom-select">
+                <option value="">Изаберите...</option>
+                {% for zone in fields.available_zones %}
+                    <option value="{{ zone.id }}">{{ zone.description }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </div>
+{% endif %}

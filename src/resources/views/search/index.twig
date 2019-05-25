@@ -1,0 +1,70 @@
+{% extends 'base.twig' %}
+{% block scripts %}
+    <!--suppress HtmlUnknownTarget -->
+    <script src="js/modules/payment-module.js"></script>
+    <script src="js/events/payment-events.js"></script>
+{% endblock %}
+{% block container %}
+    {% include 'search/partial/help-modal.twig' %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="offset-xl-3 offset-lg-3 offset-md-2 col-xl-6 col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <div class="d-block d-sm-block d-md-block d-lg-none d-xl-none">
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <a href="https://www.aikbanka.rs" target="_blank">
+                                <img src="media/aik-logo.png" alt="aik-logo" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                    <div class="row">
+                        <div class="col-sm-4 text-center">
+                            <img src="media/visa-pos-fc.png" alt="visa-pos-fc" class="img-fluid">
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <img src="media/master-card.png" alt="master-card" class="img-fluid">
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <a href="https://www.aikbanka.rs" target="_blank">
+                                <img src="media/aik-logo.png" alt="aik-logo" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="row mb-5">
+                    <div id="payment-form-container" class="col-sm-12">
+                        <div id="card-info-container">
+                            {% include 'search/partial/card-info-form.twig' %}
+                            {% if errors['alias-number'] %}
+                                <p class="text-center text-danger mt-5">{{ errors['alias-number']|first }}!</p>
+                            {% elseif errors['product-id'] %}
+                                <p class="text-center text-danger mt-5">{{ errors['product-id']|first }}!</p>
+                            {% else %}
+                                {% if fields is not empty %}
+                                    {% if fields.exists == false %}
+                                        <p class="text-center text-danger mt-5">
+                                            Тражени алиас не постоји у бази података!
+                                        </p>
+                                    {% elseif fields.suspended %}
+                                        <p class="text-center text-danger mt-5">
+                                            Тражени алиас је суспендован!
+                                        </p>
+                                    {% else %}
+                                        {% include 'search/partial/card-details.twig' %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div id="product-profile-container">
+                            {% include 'search/partial/product-profile-form.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
