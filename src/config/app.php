@@ -1,11 +1,8 @@
 <?php
 declare(strict_types=1);
 
-use App\Constants;
-
 return [
     'settings' => [
-        'baseUrl'                           => Constants::BASE_URL,
         'determineRouteBeforeAppMiddleware' => false,
         'displayErrorDetails'               => false,
         'templatesPath'                     => __DIR__ . '/../resources/views/',

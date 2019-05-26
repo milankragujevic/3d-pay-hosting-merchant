@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Assets;
 use App\Constants;
 use App\Merchant\MerchantConfiguration;
 use App\Order\Order;

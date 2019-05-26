@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App;
 
 use App\Merchant\Merchants\BelgradeMerchant;
-use App\Merchant\Merchants\TestMerchant;
 
 /**
  * Interface Constants
@@ -32,7 +31,7 @@ interface Constants
     /**
      * @var string
      */
-    const BASE_URL = 'http://itopup.busplus.rs:8888/';
+    const BASE_URL = 'http://itopup.busplus.rs:8888';
     /**
      * @var string
      */

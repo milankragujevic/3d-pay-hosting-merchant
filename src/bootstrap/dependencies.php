@@ -42,7 +42,7 @@ $container['view'] = function (Container $container): Twig {
     ]);
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new TwigExtension($container['router'], $basePath));
-    $view->getEnvironment()->addGlobal('base_url', Constants::BASE_URL);
+    $view->getEnvironment()->addGlobal('base_url', Constants::BASE_URL . '/');
     $view->getEnvironment()->addGlobal('application_owner', Constants::APPLICATION_OWNER);
     $view->getEnvironment()->addGlobal('application_owner_home_page', Constants::APPLICATION_OWNER_HOME_PAGE);
     $view->getEnvironment()->addGlobal('favicon', Constants::FAVICON_PATH);
