@@ -84,7 +84,7 @@ Code style is according to [PSR-2](https://www.php-fig.org/psr/psr-2/) standards
 
 * [Docker](https://www.docker.com/) - Program that performs operating-system-level virtualization;
 * [MySQL 5.7.25](https://dev.mysql.com/doc/relnotes/mysql/5.7/en/);
-* [PHP 7.3.4](https://www.php.net/ChangeLog-7.php#7.3.4);
+* [PHP 7.3.5](https://www.php.net/ChangeLog-7.php#7.3.5);
 * [Composer](https://getcomposer.org/) - Dependency Manager for PHP;
 * [Slim 3](http://www.slimframework.com/docs/) - PHP micro framework;
 * [Eloquent](https://laravel.com/docs/5.8/eloquent) - Database ORM toolkit;
