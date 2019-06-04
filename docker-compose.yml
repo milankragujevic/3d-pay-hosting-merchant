@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  database:
+    container_name: ${DB_CONTAINER_NAME}
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/database/Dockerfile
+    ports:
+      - ${MYSQL_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
+    env_file:
+      - .env
+  webserver:
+    container_name: ${WEBSERVER_CONTAINER_NAME}
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - ${APACHE_PORT}:443
+    volumes:
+      - ./src/:/var/www/html/
+      - ./docker/web/vhost.conf:/etc/apache2/sites-enabled/000-default.conf
+    links:
+      - database
+    environment:
+      - DB_PORT=${MYSQL_PORT}
+      - DB_HOST=${DB_CONTAINER_NAME}
+    env_file:
+      - .env
+    depends_on:
+      - database
+    stdin_open: true
+    tty: true

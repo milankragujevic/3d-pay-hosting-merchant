@@ -1,0 +1,60 @@
+<div id="shopping-cart-items-container" class="table-responsive">
+    <table id="shopping-cart-items" class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th class="text-center align-middle">Редни број</th>
+            <th class="text-center align-middle">Алиас</th>
+            <th class="text-center align-middle">Назив производа</th>
+            <th class="text-center align-middle">Основица</th>
+            <th class="text-center align-middle">ПДВ</th>
+            <th class="text-center align-middle">Цена</th>
+            <th class="text-center align-middle"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in shopping_cart_items.data %}
+            <tr>
+                <td class="text-center align-middle"></td>
+                <td class="text-center align-middle">
+                    {{ item.alias_number }}
+                </td>
+                <td class="text-center align-middle">
+                    {{ item.product_name }}
+                </td>
+                <td class="text-center align-middle">
+                    {{ item.base_price|currency('дин.') }}
+                </td>
+                <td class="text-center align-middle">
+                    {{ item.vat_amount|currency('дин.') }}
+                </td>
+                <td class="text-center align-middle">
+                    {{ item.price_with_vat|currency('дин.') }}
+                </td>
+                <td class="text-center align-middle">
+                    <a href="{{ path_for('remove.item', {'alias-number':item.alias_number}) }}"
+                       title="Уклони производ са листе"
+                       class="btn btn-link border-danger text-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<hr/>
+<div class="row">
+    <div class="col-sm-12 mt-2">
+        <a href="{{ path_for('index') }}" class="btn btn-info float-left">Настави са
+            куповином</a>
+        {% if transaction_amount > 0 %}
+            <form method="post" action="{{ path_for('checkout') }}">
+                {% for name, value in fields %}
+                    <input type="hidden" name="{{ name }}" value="{{ value }}">
+                {% endfor %}
+                <input type="submit" class="btn btn-danger float-right"
+                       value="Изврши плаћање у износу од {{ transaction_amount|currency('дин.') }}">
+            </form>
+        {% endif %}
+    </div>
+</div>
