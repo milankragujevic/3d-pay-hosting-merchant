@@ -1,0 +1,52 @@
+<h4>Садржај корпе</h4>
+<hr/>
+<div id="accordion">
+    {% for item in shopping_cart_items.data %}
+        <div class="card bg-default rounded-0">
+            <div class="card-header rounded-0 bg-success">
+                <a class="btn btn-link card-link float-left text-white" data-toggle="collapse"
+                   href="#alias-{{ item.alias_number }}">
+                    <i class="fas fa-barcode mr-1"></i> {{ item.alias_number }}
+                </a>
+                <a href="{{ path_for('remove.item', {'alias-number':item.alias_number}) }}"
+                   class="btn btn-link text-white border-white float-right">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </div>
+            <div id="alias-{{ item.alias_number }}" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Назив производа:</dt>
+                        <dd class="col-sm-9">{{ item.product_name }}</dd>
+
+                        <dt class="col-sm-3">Основица:</dt>
+                        <dd class="col-sm-9">{{ item.base_price|currency('дин.') }}</dd>
+
+                        <dt class="col-sm-3">ПДВ 10%:</dt>
+                        <dd class="col-sm-9">{{ item.vat_amount|currency('дин.') }}</dd>
+
+                        <dt class="col-sm-3 text-danger">Укупна цена:</dt>
+                        <dd class="col-sm-9 text-danger">{{ item.price_with_vat|currency('дин.') }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<hr/>
+<div class="row text-center">
+    <div class="col-sm-12 mt-1 mb-5">
+        <a href="{{ path_for('index') }}" class="btn btn-primary">
+            Настави са куповином
+        </a>
+        {% if transaction_amount > 0 %}
+            <form method="post" action="{{ path_for('checkout') }}">
+                {% for name, value in fields %}
+                    <input type="hidden" name="{{ name }}" value="{{ value }}">
+                {% endfor %}
+                <input type="submit" class="btn btn-danger mt-3"
+                       value="Изврши плаћање у износу од {{ transaction_amount|currency('дин.') }}">
+            </form>
+        {% endif %}
+    </div>
+</div>
