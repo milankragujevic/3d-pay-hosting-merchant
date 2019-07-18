@@ -97,7 +97,7 @@ Code style is according to [PSR-2](https://www.php-fig.org/psr/psr-2/) standards
 
 ## Author
 
-* **Aleksandar Rakić** - *Initial work* - [www.aleksandarrakic.com](http://www.aleksandarrakic.com)
+* **Aleksandar Rakić** - *Initial work* - [www.aleksandarrakic.rs](http://www.aleksandarrakic.rs)
 
 ## License
 
